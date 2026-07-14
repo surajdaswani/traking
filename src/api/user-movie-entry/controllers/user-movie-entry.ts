@@ -3,9 +3,10 @@
  */
 
 import { factories } from "@strapi/strapi";
+import { USER_MOVIE_ENTRY_UID } from "../../../constants";
 
 export default factories.createCoreController(
-  "api::user-movie-entry.user-movie-entry",
+  USER_MOVIE_ENTRY_UID,
   ({ strapi }) => ({
     async find(ctx) {
       const userId = ctx.state.user?.id;
@@ -34,11 +35,11 @@ export default factories.createCoreController(
       }
 
       const total = await strapi.db
-        .query("api::user-movie-entry.user-movie-entry")
+        .query(USER_MOVIE_ENTRY_UID)
         .count({ where });
 
       const entries = await strapi.db
-        .query("api::user-movie-entry.user-movie-entry")
+        .query(USER_MOVIE_ENTRY_UID)
         .findMany({
           where,
           populate: { movie: true },

@@ -1,3 +1,5 @@
+import { USER_MOVIE_ENTRY_UID } from "../../../../constants";
+
 export default {
   async beforeCreate(event: any) {
     const { data } = event.params;
@@ -27,14 +29,10 @@ function validateRating(rating: number | null | undefined) {
 async function assertNoDuplicate(userId: number, movieId: number) {
   if (!userId || !movieId) return;
 
-  const existing = await strapi.db
-    .query("api::user-movie-entry.user-movie-entry")
-    .findOne({
-      where: {
-        users_permissions_user: userId,
-        movie: movieId,
-      },
-    });
+  const existing = await (strapi.service(USER_MOVIE_ENTRY_UID) as any).findByUserAndMovie(
+    userId,
+    movieId,
+  );
 
   if (existing) {
     throw new Error("An entry already exists for this movie and user");

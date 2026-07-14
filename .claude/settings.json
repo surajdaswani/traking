@@ -11,7 +11,9 @@
       "Bash(echo \"---relations dirs---\")",
       "Bash(find /d/traking/node_modules/.pnpm/@strapi+database@5.50.1_@ty_b9bd4c3d67d3439fd330e81e77e0e4e1/node_modules/@strapi/database/dist -iname *relation*)",
       "Bash(ls /d/traking/node_modules/.pnpm/@strapi+database@5.50.1_@ty_b9bd4c3d67d3439fd330e81e77e0e4e1/node_modules/@strapi/database/dist/validations/relations)",
-      "Bash(node -e \"console.log\\(require\\('./node_modules/@strapi/strapi/package.json'\\).version\\)\")"
+      "Bash(node -e \"console.log\\(require\\('./node_modules/@strapi/strapi/package.json'\\).version\\)\")",
+      "Bash(npx tsc *)",
+      "Bash(echo \"EXIT:$?\")"
     ]
   }
 }

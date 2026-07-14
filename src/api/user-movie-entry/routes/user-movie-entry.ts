@@ -3,5 +3,6 @@
  */
 
 import { factories } from '@strapi/strapi';
+import { USER_MOVIE_ENTRY_UID } from '../../../constants';
 
-export default factories.createCoreRouter('api::user-movie-entry.user-movie-entry');
+export default factories.createCoreRouter(USER_MOVIE_ENTRY_UID);
