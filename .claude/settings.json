@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n 'validate\\\\|transform\\\\|async create' /d/traking/node_modules/.pnpm/@strapi+core@5.50.1_@babel+_cca001877f281cb2c03c4ff8d9d37717/node_modules/@strapi/core/dist/services/document-service/repository.js)",
+      "Bash(grep -n 'async create\\\\|entityValidator\\\\|validateInput\\\\|create\\(' /d/traking/node_modules/.pnpm/@strapi+core@5.50.1_@babel+_cca001877f281cb2c03c4ff8d9d37717/node_modules/@strapi/core/dist/services/document-service/repository.js)",
+      "Bash(grep -n validator /d/traking/node_modules/.pnpm/@strapi+core@5.50.1_@babel+_cca001877f281cb2c03c4ff8d9d37717/node_modules/@strapi/core/dist/services/document-service/repository.js)",
+      "Bash(ls /d/traking/node_modules/.pnpm/@strapi+core@5.50.1_@babel+_cca001877f281cb2c03c4ff8d9d37717/node_modules/@strapi/core/dist/services/entity-validator)",
+      "Bash(echo \"---index.js---\")",
+      "Bash(cat /d/traking/node_modules/.pnpm/@strapi+core@5.50.1_@babel+_cca001877f281cb2c03c4ff8d9d37717/node_modules/@strapi/core/dist/services/entity-validator/index.js)",
+      "Bash(grep -rln 'throwInvalidKey\\\\|Invalid key' /d/traking/node_modules/.pnpm/@strapi+database@5.50.1_@ty_b9bd4c3d67d3439fd330e81e77e0e4e1/node_modules/@strapi/database/dist)",
+      "Bash(echo \"---relations dirs---\")",
+      "Bash(find /d/traking/node_modules/.pnpm/@strapi+database@5.50.1_@ty_b9bd4c3d67d3439fd330e81e77e0e4e1/node_modules/@strapi/database/dist -iname *relation*)",
+      "Bash(ls /d/traking/node_modules/.pnpm/@strapi+database@5.50.1_@ty_b9bd4c3d67d3439fd330e81e77e0e4e1/node_modules/@strapi/database/dist/validations/relations)",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/@strapi/strapi/package.json'\\).version\\)\")"
+    ]
+  }
+}

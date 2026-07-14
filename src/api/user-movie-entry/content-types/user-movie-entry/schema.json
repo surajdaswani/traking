@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_movie_entries",
+  "info": {
+    "singularName": "user-movie-entry",
+    "pluralName": "user-movie-entries",
+    "displayName": "UserMovieEntry"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "movie": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::movie.movie",
+      "inversedBy": "user_movie_entries"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "user_movie_entries"
+    },
+    "watchStatus": {
+      "type": "enumeration",
+      "enum": [
+        "watchlist",
+        "watched"
+      ]
+    },
+    "dateAdded": {
+      "type": "date"
+    },
+    "dateWatched": {
+      "type": "date"
+    },
+    "rating": {
+      "type": "decimal"
+    },
+    "notes": {
+      "type": "text"
+    }
+  }
+}
