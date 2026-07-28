@@ -1,4 +1,5 @@
-import type { Movie } from "../api";
+import type { Movie } from "../types";
+import { STRINGS } from "../../../lib/strings";
 
 const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w200";
 
@@ -17,11 +18,15 @@ export function MovieCard({ movie, status }: MovieCardProps) {
           width={100}
         />
       ) : (
-        <div>Sin póster</div>
+        <div>{STRINGS.movieCard.noPoster}</div>
       )}
       <p>{movie.title}</p>
       {status && (
-        <span>{status === "watched" ? "Vista" : "En pendientes"}</span>
+        <span>
+          {status === "watched"
+            ? STRINGS.movieCard.statusWatched
+            : STRINGS.movieCard.statusWatchlist}
+        </span>
       )}
     </div>
   );

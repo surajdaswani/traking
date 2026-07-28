@@ -1,36 +1,5 @@
 import { apiFetch } from "../../lib/apiClient";
-
-export interface Movie {
-  id: number;
-  tmdbId: number;
-  title: string;
-  posterPath: string | null;
-  releaseDate: string | null;
-  runtime: number | null;
-  genres: string[];
-}
-
-export interface UserMovieEntry {
-  id: number;
-  watchStatus: "watched" | "watchlist";
-  dateAdded: string;
-  dateWatched: string | null;
-  rating: number | null;
-  notes: string | null;
-  movie: Movie;
-}
-
-interface PaginatedEntries {
-  data: UserMovieEntry[];
-  meta: {
-    pagination: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
-  };
-}
+import type { PaginatedEntries, SearchResponse, MarkResponse } from "./types";
 
 export function getWatchedEntries(page = 1, pageSize = 10) {
   return apiFetch<PaginatedEntries>(
@@ -51,23 +20,24 @@ export function getCalendarEntries(page = 1, pageSize = 10) {
   );
 }
 
-export interface SearchResult {
-  tmdbId: number;
-  title: string;
-  year: string | null;
-  posterPath: string | null;
-  status: "watched" | "watchlist" | null;
-}
-
-interface SearchResponse {
-  page: number;
-  totalPages: number;
-  totalResults: number;
-  results: SearchResult[];
-}
-
 export function searchMovies(query: string, page = 1) {
   return apiFetch<SearchResponse>(
     `/api/movies/search?query=${encodeURIComponent(query)}&page=${page}`,
   );
+}
+
+export function markMovie(
+  tmdbId: number,
+  watchStatus: "watched" | "watchlist",
+) {
+  return apiFetch<MarkResponse>("/api/movies/mark", {
+    method: "POST",
+    body: JSON.stringify({ tmdbId, watchStatus }),
+  });
+}
+
+export function unmarkMovie(tmdbId: number) {
+  return apiFetch<{ action: "deleted" }>(`/api/movies/${tmdbId}/entry`, {
+    method: "DELETE",
+  });
 }

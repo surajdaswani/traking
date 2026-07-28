@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useSearchMovies } from "../features/movies/hooks";
 import { MovieCard } from "../features/movies/components/MovieCard";
+import { EntryActions } from "../features/movies/components/EntryActions";
+import { STRINGS } from "../lib/strings";
 
 export function Search() {
   const [query, setQuery] = useState("");
@@ -14,26 +16,32 @@ export function Search() {
 
   return (
     <div>
-      <h1>Buscar</h1>
+      <h1>{STRINGS.search.title}</h1>
       <input
         type="text"
         value={query}
         onChange={(e) => handleQueryChange(e.target.value)}
-        placeholder="Busca una película..."
+        placeholder={STRINGS.search.placeholder}
       />
 
-      {isLoading && <p>Buscando...</p>}
-      {isError && <p>Ha ocurrido un error en la búsqueda.</p>}
+      {isLoading && <p>{STRINGS.search.searching}</p>}
+      {isError && <p>{STRINGS.errors.search}</p>}
 
       {data && (
         <>
           <div>
             {data.results.map((result) => (
-              <MovieCard
-                key={result.tmdbId}
-                movie={{ title: result.title, posterPath: result.posterPath }}
-                status={result.status}
-              />
+              <div key={result.tmdbId}>
+                <MovieCard
+                  movie={{ title: result.title, posterPath: result.posterPath }}
+                  status={result.status}
+                />
+                <EntryActions
+                  tmdbId={result.tmdbId}
+                  releaseDate={result.releaseDate}
+                  status={result.status}
+                />
+              </div>
             ))}
           </div>
 
@@ -43,16 +51,16 @@ export function Search() {
                 onClick={() => setPage((p) => p - 1)}
                 disabled={page <= 1}
               >
-                Anterior
+                {STRINGS.pagination.previous}
               </button>
               <span>
-                Página {data.page} de {data.totalPages}
+                {STRINGS.pagination.pageOf(data.page, data.totalPages)}
               </span>
               <button
                 onClick={() => setPage((p) => p + 1)}
                 disabled={page >= data.totalPages}
               >
-                Siguiente
+                {STRINGS.pagination.next}
               </button>
             </div>
           )}

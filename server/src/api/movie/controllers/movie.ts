@@ -4,7 +4,11 @@
 
 import { factories } from "@strapi/strapi";
 import { MOVIE_UID, USER_MOVIE_ENTRY_UID } from "../../../constants";
-import { searchMovies, getMovieDetails, TmdbRequestError } from "../services/tmdb";
+import {
+  searchMovies,
+  getMovieDetails,
+  TmdbRequestError,
+} from "../services/tmdb";
 
 export default factories.createCoreController(MOVIE_UID, ({ strapi }) => ({
   async search(ctx) {
@@ -32,25 +36,30 @@ export default factories.createCoreController(MOVIE_UID, ({ strapi }) => ({
 
     const tmdbIds = tmdbData.results.map((movie) => movie.id);
 
-    const existingEntries = await strapi.db.query(USER_MOVIE_ENTRY_UID).findMany({
-      where: {
-        users_permissions_user: userId,
-        movie: { tmdbId: { $in: tmdbIds } },
-      },
-      populate: { movie: true },
-    });
+    const existingEntries = await strapi.db
+      .query(USER_MOVIE_ENTRY_UID)
+      .findMany({
+        where: {
+          users_permissions_user: userId,
+          movie: { tmdbId: { $in: tmdbIds } },
+        },
+        populate: { movie: true },
+      });
 
     const statusByTmdbId: Record<number, string> = {};
+    const releaseDateByTmdbId: Record<number, string | null> = {};
     (existingEntries as any[]).forEach((entry: any) => {
       if (entry.movie?.tmdbId) {
         statusByTmdbId[entry.movie.tmdbId] = entry.watchStatus;
+        releaseDateByTmdbId[entry.movie.tmdbId] = entry.movie.releaseDate;
       }
     });
 
-    const results = tmdbData.results.map((movie) => ({
+    const results = tmdbData.results.map((movie: any) => ({
       tmdbId: movie.id,
       title: movie.title,
       year: movie.release_date ? movie.release_date.slice(0, 4) : null,
+      releaseDate: releaseDateByTmdbId[movie.id] ?? movie.release_date ?? null,
       posterPath: movie.poster_path,
       status: statusByTmdbId[movie.id] || null,
     }));
@@ -85,7 +94,9 @@ export default factories.createCoreController(MOVIE_UID, ({ strapi }) => ({
     }
 
     // 1. Find or create the Movie
-    let movie: any = await (strapi.service(MOVIE_UID) as any).findByTmdbId(tmdbId);
+    let movie: any = await (strapi.service(MOVIE_UID) as any).findByTmdbId(
+      tmdbId,
+    );
 
     if (!movie) {
       let details: Awaited<ReturnType<typeof getMovieDetails>>;

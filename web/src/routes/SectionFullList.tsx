@@ -5,11 +5,13 @@ import {
   useCalendarEntries,
 } from "../features/movies/hooks";
 import { MovieCard } from "../features/movies/components/MovieCard";
+import { EntryActions } from "../features/movies/components/EntryActions";
+import { STRINGS } from "../lib/strings";
 
 const SECTION_TITLES: Record<string, string> = {
-  watched: "Historia",
-  watchlist: "Empezar a ver",
-  calendar: "Calendario",
+  watched: STRINGS.home.sectionWatched,
+  watchlist: STRINGS.home.sectionWatchlist,
+  calendar: STRINGS.home.sectionCalendar,
 };
 
 export function SectionFullList() {
@@ -26,7 +28,7 @@ export function SectionFullList() {
   const currentQuery = queries[type as keyof typeof queries];
 
   if (!currentQuery) {
-    return <div>Sección no encontrada.</div>;
+    return <div>{STRINGS.notFound.section}</div>;
   }
 
   const title = SECTION_TITLES[type as string];
@@ -39,29 +41,39 @@ export function SectionFullList() {
   return (
     <div>
       <h1>{title}</h1>
-      {currentQuery.isLoading && <p>Cargando...</p>}
-      {currentQuery.isError && <p>Ha ocurrido un error.</p>}
+      {currentQuery.isLoading && <p>{STRINGS.loading.generic}</p>}
+      {currentQuery.isError && <p>{STRINGS.errors.loadingData}</p>}
       {currentQuery.data && (
         <>
           <div>
             {currentQuery.data.data.map((entry) => (
-              <MovieCard key={entry.id} movie={entry.movie} />
+              <div key={entry.id}>
+                <MovieCard movie={entry.movie} />
+                <EntryActions
+                  tmdbId={entry.movie.tmdbId}
+                  releaseDate={entry.movie.releaseDate}
+                  status={entry.watchStatus}
+                />
+              </div>
             ))}
           </div>
 
           {pagination && (
             <div>
               <button onClick={() => goToPage(page - 1)} disabled={page <= 1}>
-                Anterior
+                {STRINGS.pagination.previous}
               </button>
               <span>
-                Página {pagination.page} de {pagination.pageCount}
+                {STRINGS.pagination.pageOf(
+                  pagination.page,
+                  pagination.pageCount,
+                )}
               </span>
               <button
                 onClick={() => goToPage(page + 1)}
                 disabled={page >= pagination.pageCount}
               >
-                Siguiente
+                {STRINGS.pagination.next}
               </button>
             </div>
           )}

@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import { apiFetch } from "../lib/apiClient";
 import { setSession } from "../lib/auth";
+import { STRINGS } from "../lib/strings";
 
 export function AuthCallback() {
   const [searchParams] = useSearchParams();
@@ -29,5 +30,5 @@ export function AuthCallback() {
     });
   }, [accessToken, navigate]);
 
-  return <div>Verificando sesión...</div>;
+  return <div>{STRINGS.auth.verifyingSession}</div>;
 }

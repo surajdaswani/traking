@@ -4,9 +4,11 @@ import {
   useWatchlistEntries,
   useCalendarEntries,
 } from "../features/movies/hooks";
-import type { UserMovieEntry } from "../features/movies/api";
+import type { UserMovieEntry } from "../features/movies/types";
 import { MovieCard } from "../features/movies/components/MovieCard";
+import { EntryActions } from "../features/movies/components/EntryActions";
 import { Collapsible } from "../components/Collapsible/Collapsible";
+import { STRINGS } from "../lib/strings";
 
 function EntryList({
   isLoading,
@@ -20,11 +22,11 @@ function EntryList({
   emptyMessage: string;
 }) {
   if (isLoading) {
-    return <div>Cargando...</div>;
+    return <div>{STRINGS.loading.generic}</div>;
   }
 
   if (isError) {
-    return <div>Ha ocurrido un error al cargar los datos.</div>;
+    return <div>{STRINGS.errors.loadingData}</div>;
   }
 
   if (entries.length === 0) {
@@ -34,7 +36,14 @@ function EntryList({
   return (
     <div>
       {entries.map((entry) => (
-        <MovieCard key={entry.id} movie={entry.movie} />
+        <div key={entry.id}>
+          <MovieCard movie={entry.movie} />
+          <EntryActions
+            tmdbId={entry.movie.tmdbId}
+            releaseDate={entry.movie.releaseDate}
+            status={entry.watchStatus}
+          />
+        </div>
       ))}
     </div>
   );
@@ -47,36 +56,36 @@ export function Home() {
 
   return (
     <div>
-      <h1>traking</h1>
+      <h1>{STRINGS.app.name}</h1>
 
-      <Collapsible title="Historia">
+      <Collapsible title={STRINGS.home.sectionWatched}>
         <EntryList
           isLoading={watched.isLoading}
           isError={watched.isError}
           entries={watched.data?.data ?? []}
-          emptyMessage="Todavía no has marcado ninguna película como vista."
+          emptyMessage={STRINGS.emptyStates.watched}
         />
-        <Link to="/lists/watched">Ver todo →</Link>
+        <Link to="/lists/watched">{STRINGS.home.viewAll}</Link>
       </Collapsible>
 
-      <Collapsible title="Empezar a ver">
+      <Collapsible title={STRINGS.home.sectionWatchlist}>
         <EntryList
           isLoading={watchlist.isLoading}
           isError={watchlist.isError}
           entries={watchlist.data?.data ?? []}
-          emptyMessage="No tienes ninguna película en tu lista de pendientes."
+          emptyMessage={STRINGS.emptyStates.watchlist}
         />
-        <Link to="/lists/watchlist">Ver todo →</Link>
+        <Link to="/lists/watchlist">{STRINGS.home.viewAll}</Link>
       </Collapsible>
 
-      <Collapsible title="Calendario">
+      <Collapsible title={STRINGS.home.sectionCalendar}>
         <EntryList
           isLoading={calendar.isLoading}
           isError={calendar.isError}
           entries={calendar.data?.data ?? []}
-          emptyMessage="No tienes próximos estrenos en tu lista."
+          emptyMessage={STRINGS.emptyStates.calendar}
         />
-        <Link to="/lists/calendar">Ver todo →</Link>
+        <Link to="/lists/calendar">{STRINGS.home.viewAll}</Link>
       </Collapsible>
     </div>
   );
