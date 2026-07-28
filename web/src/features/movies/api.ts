@@ -50,3 +50,24 @@ export function getCalendarEntries(page = 1, pageSize = 10) {
     `/api/user-movie-entries?filters[watchStatus]=watchlist&filters[movie][releaseDate][$gt]=${today}&sort=movie.releaseDate:asc&pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
   );
 }
+
+export interface SearchResult {
+  tmdbId: number;
+  title: string;
+  year: string | null;
+  posterPath: string | null;
+  status: "watched" | "watchlist" | null;
+}
+
+interface SearchResponse {
+  page: number;
+  totalPages: number;
+  totalResults: number;
+  results: SearchResult[];
+}
+
+export function searchMovies(query: string, page = 1) {
+  return apiFetch<SearchResponse>(
+    `/api/movies/search?query=${encodeURIComponent(query)}&page=${page}`,
+  );
+}

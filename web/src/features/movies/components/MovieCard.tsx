@@ -2,7 +2,12 @@ import type { Movie } from "../api";
 
 const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w200";
 
-export function MovieCard({ movie }: { movie: Movie }) {
+interface MovieCardProps {
+  movie: Pick<Movie, "title" | "posterPath">;
+  status?: "watched" | "watchlist" | null;
+}
+
+export function MovieCard({ movie, status }: MovieCardProps) {
   return (
     <div>
       {movie.posterPath ? (
@@ -15,6 +20,9 @@ export function MovieCard({ movie }: { movie: Movie }) {
         <div>Sin póster</div>
       )}
       <p>{movie.title}</p>
+      {status && (
+        <span>{status === "watched" ? "Vista" : "En pendientes"}</span>
+      )}
     </div>
   );
 }

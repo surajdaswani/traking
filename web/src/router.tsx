@@ -3,6 +3,7 @@ import { Login } from "./routes/Login";
 import { AuthCallback } from "./routes/AuthCallback";
 import { Home } from "./routes/Home";
 import { SectionFullList } from "./routes/SectionFullList";
+import { Search } from "./routes/Search";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 export const router = createBrowserRouter([
@@ -27,6 +28,14 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <SectionFullList />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/search",
+    element: (
+      <ProtectedRoute>
+        <Search />
       </ProtectedRoute>
     ),
   },
