@@ -8,26 +8,26 @@ export const STRINGS = {
   },
   home: {
     sectionWatched: "Historia",
-    sectionWatchlist: "Empezar a ver",
+    sectionWatchlist: "Watchlist",
     sectionCalendar: "Calendario",
     viewAll: "Ver todo →",
   },
   emptyStates: {
     watched: "Todavía no has marcado ninguna película como vista.",
-    watchlist: "No tienes ninguna película en tu lista de pendientes.",
+    watchlist: "No tienes ninguna película en tu watchlist.",
     calendar: "No tienes próximos estrenos en tu lista.",
     search: "No se encontraron resultados para tu búsqueda.",
   },
   entryActions: {
     markWatched: "Marcar como vista",
-    markWatchlist: "Marcar como pendiente",
-    unmarkWatchlist: "Quitar de pendientes",
+    markWatchlist: "Enviar a watchlist",
+    unmarkWatchlist: "Quitar de watchlist",
     unmarkWatched: "Quitar de vistas",
   },
   movieCard: {
     noPoster: "Sin póster",
     statusWatched: "Vista",
-    statusWatchlist: "Pendiente",
+    statusWatchlist: "Watchlist",
   },
   search: {
     title: "Buscar",
