@@ -1,5 +1,6 @@
 import * as RadixCollapsible from "@radix-ui/react-collapsible";
 import type { ReactNode } from "react";
+import styles from "./Collapsible.module.css";
 
 export function Collapsible({
   title,
@@ -11,9 +12,11 @@ export function Collapsible({
   return (
     <RadixCollapsible.Root defaultOpen>
       <RadixCollapsible.Trigger asChild>
-        <button>{title}</button>
+        <button className={styles.trigger}>{title}</button>
       </RadixCollapsible.Trigger>
-      <RadixCollapsible.Content>{children}</RadixCollapsible.Content>
+      <RadixCollapsible.Content className={styles.content}>
+        {children}
+      </RadixCollapsible.Content>
     </RadixCollapsible.Root>
   );
 }

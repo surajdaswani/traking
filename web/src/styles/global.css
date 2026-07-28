@@ -1,0 +1,134 @@
+:root {
+  color-scheme: light dark;
+
+  --bg: #e7e9e4;
+  --surface: #f5f4ef;
+  --surface-raised: #ffffff;
+  --text: #1b1720;
+  --text-muted: #6b6470;
+  --border: rgba(27, 23, 32, 0.14);
+  --accent-gold: #b9862b;
+  --accent-gold-soft: rgba(185, 134, 43, 0.14);
+  --accent-burgundy: #7a2632;
+  --accent-burgundy-soft: rgba(122, 38, 50, 0.12);
+  --accent-teal: #2a5b57;
+  --accent-teal-soft: rgba(42, 91, 87, 0.12);
+  --focus: #2a5b57;
+
+  --font-display: "General Sans", "Segoe UI", system-ui, sans-serif;
+  --font-body: "General Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Consolas", "Cascadia Mono", ui-monospace, monospace;
+
+  --radius: 3px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15121a;
+    --surface: #1f1b26;
+    --surface-raised: #262130;
+    --text: #ede9e2;
+    --text-muted: #a79fae;
+    --border: rgba(237, 233, 226, 0.14);
+    --accent-gold: #e3b34e;
+    --accent-gold-soft: rgba(227, 179, 78, 0.16);
+    --accent-burgundy: #c46270;
+    --accent-burgundy-soft: rgba(196, 98, 112, 0.16);
+    --accent-teal: #4fa39c;
+    --accent-teal-soft: rgba(79, 163, 156, 0.16);
+    --focus: #e3b34e;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #15121a;
+  --surface: #1f1b26;
+  --surface-raised: #262130;
+  --text: #ede9e2;
+  --text-muted: #a79fae;
+  --border: rgba(237, 233, 226, 0.14);
+  --accent-gold: #e3b34e;
+  --accent-gold-soft: rgba(227, 179, 78, 0.16);
+  --accent-burgundy: #c46270;
+  --accent-burgundy-soft: rgba(196, 98, 112, 0.16);
+  --accent-teal: #4fa39c;
+  --accent-teal-soft: rgba(79, 163, 156, 0.16);
+  --focus: #e3b34e;
+}
+
+:root[data-theme="light"] {
+  --bg: #e7e9e4;
+  --surface: #f5f4ef;
+  --surface-raised: #ffffff;
+  --text: #1b1720;
+  --text-muted: #6b6470;
+  --border: rgba(27, 23, 32, 0.14);
+  --accent-gold: #b9862b;
+  --accent-gold-soft: rgba(185, 134, 43, 0.14);
+  --accent-burgundy: #7a2632;
+  --accent-burgundy-soft: rgba(122, 38, 50, 0.12);
+  --accent-teal: #2a5b57;
+  --accent-teal-soft: rgba(42, 91, 87, 0.12);
+  --focus: #2a5b57;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.75rem;
+}
+
+/* "traking" is a wordmark, always lowercase — wherever it's used as a heading/logo */
+.brand-wordmark {
+  text-transform: none;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

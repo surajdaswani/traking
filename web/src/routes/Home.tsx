@@ -9,6 +9,7 @@ import { MovieCard } from "../features/movies/components/MovieCard";
 import { EntryActions } from "../features/movies/components/EntryActions";
 import { Collapsible } from "../components/Collapsible/Collapsible";
 import { STRINGS } from "../lib/strings";
+import styles from "./Home.module.css";
 
 function EntryList({
   isLoading,
@@ -34,9 +35,9 @@ function EntryList({
   }
 
   return (
-    <div>
+    <div className={styles.row}>
       {entries.map((entry) => (
-        <div key={entry.id}>
+        <div key={entry.id} className={styles.entry}>
           <MovieCard movie={entry.movie} />
           <EntryActions
             tmdbId={entry.movie.tmdbId}
@@ -55,8 +56,8 @@ export function Home() {
   const calendar = useCalendarEntries();
 
   return (
-    <div>
-      <h1>{STRINGS.app.name}</h1>
+    <div className={styles.home}>
+      <h1 className="brand-wordmark">{STRINGS.app.name}</h1>
 
       <Collapsible title={STRINGS.home.sectionWatched}>
         <EntryList
@@ -65,7 +66,9 @@ export function Home() {
           entries={watched.data?.data ?? []}
           emptyMessage={STRINGS.emptyStates.watched}
         />
-        <Link to="/lists/watched">{STRINGS.home.viewAll}</Link>
+        <Link to="/lists/watched" className={styles.viewAll}>
+          {STRINGS.home.viewAll}
+        </Link>
       </Collapsible>
 
       <Collapsible title={STRINGS.home.sectionWatchlist}>
@@ -75,7 +78,9 @@ export function Home() {
           entries={watchlist.data?.data ?? []}
           emptyMessage={STRINGS.emptyStates.watchlist}
         />
-        <Link to="/lists/watchlist">{STRINGS.home.viewAll}</Link>
+        <Link to="/lists/watchlist" className={styles.viewAll}>
+          {STRINGS.home.viewAll}
+        </Link>
       </Collapsible>
 
       <Collapsible title={STRINGS.home.sectionCalendar}>
@@ -85,7 +90,9 @@ export function Home() {
           entries={calendar.data?.data ?? []}
           emptyMessage={STRINGS.emptyStates.calendar}
         />
-        <Link to="/lists/calendar">{STRINGS.home.viewAll}</Link>
+        <Link to="/lists/calendar" className={styles.viewAll}>
+          {STRINGS.home.viewAll}
+        </Link>
       </Collapsible>
     </div>
   );

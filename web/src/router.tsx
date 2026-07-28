@@ -4,16 +4,21 @@ import { AuthCallback } from "./routes/AuthCallback";
 import { Home } from "./routes/Home";
 import { SectionFullList } from "./routes/SectionFullList";
 import { Search } from "./routes/Search";
+import { AppLayout } from "./routes/AppLayout";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
     element: (
       <ProtectedRoute>
-        <Home />
+        <AppLayout />
       </ProtectedRoute>
     ),
+    children: [
+      { index: true, element: <Home /> },
+      { path: "/lists/:type", element: <SectionFullList /> },
+      { path: "/search", element: <Search /> },
+    ],
   },
   {
     path: "/login",
@@ -22,21 +27,5 @@ export const router = createBrowserRouter([
   {
     path: "/connect/google/redirect",
     element: <AuthCallback />,
-  },
-  {
-    path: "/lists/:type",
-    element: (
-      <ProtectedRoute>
-        <SectionFullList />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: "/search",
-    element: (
-      <ProtectedRoute>
-        <Search />
-      </ProtectedRoute>
-    ),
   },
 ]);

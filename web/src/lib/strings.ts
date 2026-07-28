@@ -2,6 +2,13 @@ export const STRINGS = {
   app: {
     name: "traking",
   },
+  nav: {
+    home: "Inicio",
+    search: "Buscar",
+    logout: "Cerrar sesión",
+    themeToLight: "Modo claro",
+    themeToDark: "Modo oscuro",
+  },
   auth: {
     loginButton: "Iniciar sesión con Google",
     verifyingSession: "Verificando sesión...",

@@ -7,7 +7,7 @@ export function Login() {
 
   return (
     <div>
-      <h1>{STRINGS.app.name}</h1>
+      <h1 className="brand-wordmark">{STRINGS.app.name}</h1>
       <button onClick={handleLogin}>{STRINGS.auth.loginButton}</button>
     </div>
   );

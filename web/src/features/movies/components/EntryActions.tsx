@@ -1,5 +1,6 @@
 import { useMarkMovie, useUnmarkMovie } from "../hooks";
 import { STRINGS } from "../../../lib/strings";
+import styles from "./EntryActions.module.css";
 
 interface EntryActionsProps {
   tmdbId: number;
@@ -19,7 +20,7 @@ export function EntryActions({
   const isReleased = !releaseDate || releaseDate <= today;
 
   return (
-    <div>
+    <div className={styles.actions}>
       {status === null && (
         <>
           <button
@@ -84,7 +85,7 @@ export function EntryActions({
       )}
 
       {(markMovie.isError || unmarkMovie.isError) && (
-        <p>{STRINGS.errors.genericAction}</p>
+        <p className={styles.error}>{STRINGS.errors.genericAction}</p>
       )}
     </div>
   );

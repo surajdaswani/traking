@@ -7,6 +7,7 @@ import {
 import { MovieCard } from "../features/movies/components/MovieCard";
 import { EntryActions } from "../features/movies/components/EntryActions";
 import { STRINGS } from "../lib/strings";
+import styles from "./SectionFullList.module.css";
 
 const SECTION_TITLES: Record<string, string> = {
   watched: STRINGS.home.sectionWatched,
@@ -45,33 +46,31 @@ export function SectionFullList() {
   };
 
   return (
-    <div>
+    <div className={styles.page}>
       <h1>{title}</h1>
       {currentQuery.isLoading && <p>{STRINGS.loading.generic}</p>}
       {currentQuery.isError && <p>{STRINGS.errors.loadingData}</p>}
       {currentQuery.data && (
         <>
-          <div>
-            {currentQuery.data.data.length === 0 ? (
-              <p>{SECTION_EMPTY_MESSAGES[type as string]}</p>
-            ) : (
-              <div>
-                {currentQuery.data.data.map((entry) => (
-                  <div key={entry.id}>
-                    <MovieCard movie={entry.movie} />
-                    <EntryActions
-                      tmdbId={entry.movie.tmdbId}
-                      releaseDate={entry.movie.releaseDate}
-                      status={entry.watchStatus}
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          {currentQuery.data.data.length === 0 ? (
+            <p>{SECTION_EMPTY_MESSAGES[type as string]}</p>
+          ) : (
+            <div className={styles.grid}>
+              {currentQuery.data.data.map((entry) => (
+                <div key={entry.id} className={styles.entry}>
+                  <MovieCard movie={entry.movie} />
+                  <EntryActions
+                    tmdbId={entry.movie.tmdbId}
+                    releaseDate={entry.movie.releaseDate}
+                    status={entry.watchStatus}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
 
           {pagination && (
-            <div>
+            <div className={styles.pagination}>
               <button onClick={() => goToPage(page - 1)} disabled={page <= 1}>
                 {STRINGS.pagination.previous}
               </button>
