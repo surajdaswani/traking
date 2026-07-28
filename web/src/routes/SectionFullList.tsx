@@ -14,6 +14,12 @@ const SECTION_TITLES: Record<string, string> = {
   calendar: STRINGS.home.sectionCalendar,
 };
 
+const SECTION_EMPTY_MESSAGES: Record<string, string> = {
+  watched: STRINGS.emptyStates.watched,
+  watchlist: STRINGS.emptyStates.watchlist,
+  calendar: STRINGS.emptyStates.calendar,
+};
+
 export function SectionFullList() {
   const { type } = useParams();
   const [searchParams] = useSearchParams();
@@ -46,16 +52,22 @@ export function SectionFullList() {
       {currentQuery.data && (
         <>
           <div>
-            {currentQuery.data.data.map((entry) => (
-              <div key={entry.id}>
-                <MovieCard movie={entry.movie} />
-                <EntryActions
-                  tmdbId={entry.movie.tmdbId}
-                  releaseDate={entry.movie.releaseDate}
-                  status={entry.watchStatus}
-                />
+            {currentQuery.data.data.length === 0 ? (
+              <p>{SECTION_EMPTY_MESSAGES[type as string]}</p>
+            ) : (
+              <div>
+                {currentQuery.data.data.map((entry) => (
+                  <div key={entry.id}>
+                    <MovieCard movie={entry.movie} />
+                    <EntryActions
+                      tmdbId={entry.movie.tmdbId}
+                      releaseDate={entry.movie.releaseDate}
+                      status={entry.watchStatus}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
 
           {pagination && (

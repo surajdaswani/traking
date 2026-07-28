@@ -30,19 +30,28 @@ export function Search() {
       {data && (
         <>
           <div>
-            {data.results.map((result) => (
-              <div key={result.tmdbId}>
-                <MovieCard
-                  movie={{ title: result.title, posterPath: result.posterPath }}
-                  status={result.status}
-                />
-                <EntryActions
-                  tmdbId={result.tmdbId}
-                  releaseDate={result.releaseDate}
-                  status={result.status}
-                />
+            {data.results.length === 0 ? (
+              <p>{STRINGS.emptyStates.search}</p>
+            ) : (
+              <div>
+                {data.results.map((result) => (
+                  <div key={result.tmdbId}>
+                    <MovieCard
+                      movie={{
+                        title: result.title,
+                        posterPath: result.posterPath,
+                      }}
+                      status={result.status}
+                    />
+                    <EntryActions
+                      tmdbId={result.tmdbId}
+                      releaseDate={result.releaseDate}
+                      status={result.status}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
 
           {data.totalPages > 1 && (

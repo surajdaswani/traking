@@ -16,6 +16,7 @@ export const STRINGS = {
     watched: "Todavía no has marcado ninguna película como vista.",
     watchlist: "No tienes ninguna película en tu lista de pendientes.",
     calendar: "No tienes próximos estrenos en tu lista.",
+    search: "No se encontraron resultados para tu búsqueda.",
   },
   entryActions: {
     markWatched: "Marcar como vista",
