@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import {
   useWatchedEntries,
   useWatchlistEntries,
@@ -55,6 +56,7 @@ export function Home() {
           entries={watched.data?.data ?? []}
           emptyMessage="Todavía no has marcado ninguna película como vista."
         />
+        <Link to="/lists/watched">Ver todo →</Link>
       </Collapsible>
 
       <Collapsible title="Empezar a ver">
@@ -64,6 +66,7 @@ export function Home() {
           entries={watchlist.data?.data ?? []}
           emptyMessage="No tienes ninguna película en tu lista de pendientes."
         />
+        <Link to="/lists/watchlist">Ver todo →</Link>
       </Collapsible>
 
       <Collapsible title="Calendario">
@@ -73,6 +76,7 @@ export function Home() {
           entries={calendar.data?.data ?? []}
           emptyMessage="No tienes próximos estrenos en tu lista."
         />
+        <Link to="/lists/calendar">Ver todo →</Link>
       </Collapsible>
     </div>
   );
